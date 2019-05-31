@@ -27,3 +27,4 @@ services:
     build: ./src/app
     volumes:
         - ./www:/var/www
+        - ./src/app/php.ini:/usr/local/etc/php/custom.d
