@@ -28,3 +28,6 @@ services:
     volumes:
         - ./www:/var/www
         - ./src/app/php.ini:/usr/local/etc/php/custom.d
+    environment:
+      XDEBUG_CONFIG: "remote_host=192.168.220.1 remote_enable=1"
+      PHP_IDE_CONFIG: "serverName=Docker"
