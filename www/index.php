@@ -1,4 +1,47 @@
 <?php
+
+
+function stoit($num)
+{
+    $num=ceil($num);
+    $str='';
+    $str.=$num;
+    $lenght=strlen($str);
+    $res='';
+    if($num > 1000 || $num== 1000)
+    {
+        if( $lenght == 4)
+        {
+        $res=$str[0].' '.substr($str,1). '₽';
+        }
+
+        if ($lenght == 5)
+        {
+            $res=$str[0]. $str[1].' '.substr($str,2). '₽';
+        }
+
+        if ($lenght == 6)
+        {
+            $res=$str[0]. $str[1]. $str[2].' '.substr($str,3). '₽';
+        }
+    }
+    else
+    {
+        return $str.'₽';
+    }
+
+    return $res;
+}
+
+
+?>
+
+
+
+
+
+
+<?php
 $is_auth = rand(0, 1);
 
 $user_name = 'ksander142'; // укажите здесь ваше имя
@@ -113,7 +156,7 @@ $user_name = 'ksander142'; // укажите здесь ваше имя
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount">Стартовая цена</span>
-                            <span class="lot__cost"><?= $value["cost"];?><b class="rub">р</b></span>
+                            <span class="lot__cost"><?= stoit($value["cost"]);?></span>
                         </div>
                         <div class="lot__timer timer">
                             12:23
