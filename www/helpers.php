@@ -143,4 +143,31 @@ function include_template($name, array $data = []) {
     return $result;
 }
 
+function getCost($num)
+{
+    $num=ceil($num);
+    $str=(string)$num;
+    $lenght=strlen($str);
+    if($num > 1000 || $num== 1000)
+    {
+        if( $lenght == 4)
+        {
+            return $str[0].' '.substr($str,1). '₽';
+        }
+
+        if ($lenght == 5)
+        {
+            return $str[0]. $str[1].' '.substr($str,2). '₽';
+        }
+
+        if ($lenght == 6)
+        {
+            return $str[0]. $str[1]. $str[2].' '.substr($str,3). '₽';
+        }
+    }
+    else
+    {
+        return $str.'₽';
+    }
+}
 
