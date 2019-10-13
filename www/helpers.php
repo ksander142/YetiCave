@@ -171,3 +171,24 @@ function getCost($num)
     }
 }
 
+
+function getTime($time)
+{
+
+    $now_time = time();
+    $end_time = strtotime($time);
+    $ost = $end_time - $now_time ;
+    $minute = $ost / 60;
+    $min = floor($minute); //floor округляет до целого в меньшую сторону
+    $hour = $min / 60;
+    $h = floor($hour); //floor округляет до целого в меньшую сторону
+    $min = $min - $h * 60;
+    $res = [(int)$h,(int)$min];
+    if ($res[0] < 0)
+    {
+        $res[0] = 0;
+        $res[1] = 0;
+    }
+    return $res;
+}
+

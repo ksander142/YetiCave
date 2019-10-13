@@ -1,31 +1,38 @@
 <?php
 require_once "helpers.php" ;
 
+
 $products = [
     ["name" => "2014 Rossignol District Snowboard	",
         "categories" => "Доски и лыжи",
         "cost" => "10999",
-        "url" => "img/lot-1.jpg"],
+        "url" => "img/lot-1.jpg",
+        "date" => "2019-10-11"],
     ["name" => "DC Ply Mens 2016/2017 Snowboard",
         "categories" => "Доски и лыжи",
         "cost" => "159999",
-        "url" => "img/lot-2.jpg"],
+        "url" => "img/lot-2.jpg",
+        "date" => "2019-10-22"],
     ["name" => "Крепления Union Contact Pro 2015 года размер L/XL",
         "categories" => "Крепления",
         "cost" => "8000",
-        "url" => "img/lot-3.jpg"],
+        "url" => "img/lot-3.jpg",
+        "date" => "2019-10-23"],
     ["name" => "Ботинки для сноуборда DC Mutiny Charocal",
         "categories" => "Ботинки",
         "cost" => "10999",
-        "url" => "img/lot-4.jpg"],
+        "url" => "img/lot-4.jpg",
+        "date" => "2019-10-24"],
     ["name" => "Куртка для сноуборда DC Mutiny Charocal",
         "categories" => "Одежда",
         "cost" => "7500",
-        "url" => "img/lot-5.jpg"],
+        "url" => "img/lot-5.jpg",
+        "date" => "2019-10-26"],
     ["name" => "Маска Oakley Canopy",
         "categories" => "Разное",
         "cost" => "5400",
-        "url" => "img/lot-6.jpg"]
+        "url" => "img/lot-6.jpg",
+        "date" => "2019-10-29"]
 ];
 $categories = [
     "Доски и лыжи",
@@ -33,7 +40,7 @@ $categories = [
     "Ботинки",
     "Одежда",
     "Инструменты",
-    "Разное"];
+    "Разное",];
 
 $is_auth = rand(0, 1);
 $user_name = 'ksander142'; // укажите здесь ваше имя
