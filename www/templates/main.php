@@ -31,10 +31,9 @@
                             <span class="lot__amount">Стартовая цена</span>
                             <span class="lot__cost"><?= getCost($value["cost"]);?></span>
                         </div>
-                        <?
-                            $lostTime = getTime($value['date']);
-                            $zeroTime = $lostTime[0] < 1 ? 'timer--finishing' : '';
-                        ?>
+                        <?  $lostTime = getTime($value["date"]);
+                            $zeroTime = $lostTime[0] < 1 ? 'timer--finishing' : ''; ?>
+
                         <div class="lot__timer timer <?= $zeroTime ?>">
                             <?= $lostTime[0] . ":" . $lostTime[1]?>
                         </div>

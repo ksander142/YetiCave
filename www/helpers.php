@@ -126,7 +126,8 @@ function get_noun_plural_form (int $number, string $one, string $two, string $ma
  * @param array $data Ассоциативный массив с данными для шаблона
  * @return string Итоговый HTML
  */
-function include_template($name, array $data = []) {
+function include_template($name, array $data = [])
+{
     $name = 'templates/' . $name;
     $result = '';
 
@@ -143,56 +144,69 @@ function include_template($name, array $data = []) {
     return $result;
 }
 
-function getCost($num)
+
+/**
+ * @param int $num
+ * @return string
+ */
+function getCost(int $num): string
 {
-    $num=ceil($num);
-    $str=(string)$num;
-    $lenght=strlen($str);
-    if($num > 1000 || $num== 1000)
-    {
-        if( $lenght == 4)
-        {
+    $num = ceil($num);
+    $str = (string)$num;
+    $lenght = strlen($str);
+
+    if ($num > 1000 || $num == 1000) {
+
+        if ($lenght == 4) {
             return $str[0].' '.substr($str,1). '₽';
         }
 
-        if ($lenght == 5)
-        {
+        if ($lenght == 5) {
             return $str[0]. $str[1].' '.substr($str,2). '₽';
         }
 
-        if ($lenght == 6)
-        {
+        if ($lenght == 6) {
             return $str[0]. $str[1]. $str[2].' '.substr($str,3). '₽';
         }
-    }
-    else
-    {
+    } else {
         return $str.'₽';
     }
 }
 
-
-function getTime($time)
+/**
+ * @param string $time
+ * @return array
+ */
+function getTime(string $time): array
 {
-
     $now_time = time();
     $end_time = strtotime($time);
     $ost = $end_time - $now_time ;
     $minute = $ost / 60;
+
+    if ($minute < 0) {
+        $minute = 0;
+    }
+
     $min = floor($minute); //floor округляет до целого в меньшую сторону
     $hour = $min / 60;
     $h = floor($hour); //floor округляет до целого в меньшую сторону
     $min = $min - $h * 60;
-    $res = [(int)$h,(int)$min];
-    if ($res[0] < 0)
-    {
-        $res[0] = 0;
 
+    if ($min < 10) {
+        $min = "0$min";
     }
-    if ($res[1] < 0)
-    {
+
+    $res = [(int)$h, $min];
+
+    if ($res[0] < 0) {
+        $res[0] = 0;
+    }
+
+    if ($res[1] < 0) {
         $res[1] = 0;
     }
+
     return $res;
 }
 
