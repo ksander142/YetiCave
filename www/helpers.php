@@ -187,6 +187,10 @@ function getTime($time)
     if ($res[0] < 0)
     {
         $res[0] = 0;
+
+    }
+    if ($res[1] < 0)
+    {
         $res[1] = 0;
     }
     return $res;
