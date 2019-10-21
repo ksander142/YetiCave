@@ -3,7 +3,7 @@ require_once "helpers.php" ;
 
 $products = [
     [
-        "name" => "2014 Rossignol District Snowboard	",
+        "name" => "2014 Rossignol District Snowboard",
         "categories" => "Доски и лыжи",
         "cost" => 10999,
         "url" => "img/lot-1.jpg",

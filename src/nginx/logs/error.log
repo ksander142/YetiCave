@@ -142,3 +142,4 @@
 2019/10/14 15:21:05 [error] 6#6: *2 open() "/var/www/favicon.ico" failed (2: No such file or directory), client: 172.20.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost", referrer: "http://localhost/"
 2019/10/14 15:21:05 [error] 6#6: *2 connect() failed (111: Connection refused) while connecting to upstream, client: 172.20.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "fastcgi://172.20.0.4:9000", host: "localhost"
 2019/10/15 09:59:58 [error] 6#6: *2 open() "/var/www/favicon.ico" failed (2: No such file or directory), client: 172.20.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost", referrer: "http://localhost/"
+2019/10/19 16:26:24 [error] 6#6: *1 open() "/var/www/favicon.ico" failed (2: No such file or directory), client: 172.20.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost", referrer: "http://localhost/pages/all-lots.html"
