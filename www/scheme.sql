@@ -24,10 +24,10 @@ create TABLE lots (
                       id INT AUTO_INCREMENT PRIMARY KEY,
                       name CHAR(128) NOT NULL,
                       description CHAR(128) NOT NULL,
-                      img CHAR(128) NOT NULL,
-                      start_cost INT NOT NULL,
+                      url CHAR(128) NOT NULL, --url/img
+                      cost INT NOT NULL, --cost/start_cost
                       add_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                      lost_date CHAR(128) NOT NULL,
+                      date CHAR(128) NOT NULL, --date/lost_date
                       step_cost INT,
                       user_id INT NOT NULL,
                       categories_id INT NOT NULL,
@@ -50,7 +50,7 @@ create unique index email on users(email);
 create unique index names on users(name);
 create index name on lots(name);
 create index description on lots(description);
-create index start_cost on lots(start_cost);
-create index add_date on lots(add_date);
+create index cost on lots(cost);
+create index date on lots(date);
 create index raise_cost on rate(raise_cost);
 create index add_date on rate(add_date);

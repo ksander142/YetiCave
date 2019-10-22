@@ -1,6 +1,42 @@
 <?php
 require_once "helpers.php" ;
 
+
+$link=mysqli_connect("db","root","root","yeti");
+if($link == false) {
+    $error=mysqli_connect_error();
+    echo $error;
+}
+else {
+    echo "установлено соединение";
+}
+mysqli_set_charset($link,"utf8");
+
+$select="select id,categories from categories";
+$result=mysqli_query($link,$select);
+if($result == false){
+    $error=mysqli_error($link);
+    echo $error;
+}
+$rows=mysqli_fetch_all($result,MYSQLI_ASSOC);
+$cat=[];
+foreach ($rows as $row)
+{
+    $cat[]=$row['categories'];
+}
+$selectlots="select * from lots join categories c on lots.categories_id = c.id";
+$resultlots=mysqli_query($link,$selectlots);
+if($resultlots == false){
+    $error=mysqli_error($link);
+    echo $error;
+}
+$rowslots=mysqli_fetch_all($resultlots,MYSQLI_ASSOC);
+$lots=[];
+foreach ($rowslots as $rowslot)
+{
+    $lots[]=$rowslot;
+}
+//var_dump($lots);
 $products = [
     [
         "name" => "2014 Rossignol District Snowboard",
@@ -46,6 +82,7 @@ $products = [
     ],
 ];
 
+/*
 $categories = [
     "Доски и лыжи",
     "Крепления",
@@ -54,20 +91,20 @@ $categories = [
     "Инструменты",
     "Разное",
     ];
-
+*/
 $is_auth = rand(0, 1);
 $user_name = 'ksander142'; // укажите здесь ваше имя
 
 $title='Главная страница' ;
 $content=include_template("main.php",
     [
-        'products' => $products,
-        'categories' => $categories
+        'products' => $lots,
+        'categories' => $cat
     ]);
 
 echo (include_template("layout.php",
     [
-        'categories' => $categories,
+        'categories' => $cat,
         'content' => $content,
         'title' => $title,
         'user_name' => $user_name,
