@@ -1,4 +1,5 @@
 create SCHEMA `yeti`;
+
 create TABLE roley (
                        id INT AUTO_INCREMENT PRIMARY KEY,
                        name CHAR(128)
