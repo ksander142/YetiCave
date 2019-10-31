@@ -221,7 +221,7 @@ function getConnection()
         return $link;
     }
 
-    $link = mysqli_connect("db","root","root","yeti");
+    $link = mysqli_connect("db", "root", "root", "yeti");
 
     if ($link == false) {
         $error = mysqli_connect_error();
@@ -229,7 +229,7 @@ function getConnection()
         exit;
     }
 
-    mysqli_set_charset($link,"utf8");
+    mysqli_set_charset($link, "utf8");
 
     return $link;
 
@@ -245,14 +245,14 @@ function getConnection()
 function select(string $what, string $from, string $conditions = "WHERE 1") : array
 {
     $link =  getConnection();
-    $result = mysqli_query($link,"select" . " " . $what . " " . "from" . " " . $from . " " . $conditions);
+    $result = mysqli_query($link, "select" . " " . $what . " " . "from" . " " . $from . " " . $conditions);
 
     if ($result == false) {
         $error = mysqli_error($link);
         echo $error;
     }
 
-    $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
+    $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     return $rows;
 }

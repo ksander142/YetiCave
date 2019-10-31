@@ -17,11 +17,7 @@ $is_auth = rand(0, 1);
 $user_name = 'ksander142'; // укажите здесь ваше имя
 $title = 'Главная страница' ;
 
-/*$lot = include_template('lot.php',
-    [
-        'lot' =>
-    ]);
-*/
+
 $content = include_template("main.php",
     [
         'products' => $lots,
@@ -39,13 +35,6 @@ echo (include_template("layout.php",
 ));
 
 
-
-/**
- * Сделать функцию select($what, $from, $conditions)
- * которая принимает на вход, $what - что вывести, $from - из какой таблицы, $conditions - условия, и возращает ассоциативный массив, пример использования
- * select('id,categories', 'categories','1') //запрос будет SELECT id, categories FROM categories WHERE 1;
- * вернет ассоциативный массив с данными в готовом для использования виде
- */
 
 
 ?>
