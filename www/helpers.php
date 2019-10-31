@@ -1,4 +1,6 @@
 <?php
+
+
 /**
  * Проверяет переданную дату на соответствие формату 'ГГГГ-ММ-ДД'
  *
@@ -208,5 +210,50 @@ function getTime(string $time): array
     }
 
     return $res;
+}
+
+/**
+ * @return false|mysqli
+ */
+function getConnection()
+{
+    if (isset($link)) {
+        return $link;
+    }
+
+    $link = mysqli_connect("db", "root", "root", "yeti");
+
+    if ($link == false) {
+        $error = mysqli_connect_error();
+        echo $error;
+        exit;
+    }
+
+    mysqli_set_charset($link, "utf8");
+
+    return $link;
+
+}
+
+
+/**
+ * @param string $what
+ * @param string $from
+ * @param string $conditions
+ * @return array
+ */
+function select(string $what, string $from, string $conditions = "WHERE 1") : array
+{
+    $link =  getConnection();
+    $result = mysqli_query($link, "select" . " " . $what . " " . "from" . " " . $from . " " . $conditions);
+
+    if ($result == false) {
+        $error = mysqli_error($link);
+        echo $error;
+    }
+
+    $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    return $rows;
 }
 
