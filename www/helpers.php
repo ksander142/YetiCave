@@ -151,7 +151,7 @@ function include_template($name, array $data = [])
  * @param int $num
  * @return string
  */
-function getCost(int $num): string
+function getCost( $num): string
 {
     $num = ceil($num);
     $str = (string)$num;
@@ -170,9 +170,14 @@ function getCost(int $num): string
         if ($lenght == 6) {
             return $str[0]. $str[1]. $str[2].' '.substr($str,3). '₽';
         }
-    } else {
-        return $str.'₽';
+
+        if ($lenght == 7) {
+            return $str[0]. $str[1]. $str[2]. $str[3].' '.substr($str,4). '₽';
+        }
     }
+        return $str.'₽';
+
+
 }
 
 /**
@@ -257,3 +262,213 @@ function select(string $what, string $from, string $conditions = "WHERE 1") : ar
     return $rows;
 }
 
+
+/**
+ * @param $index
+ * @return mixed|string
+ */
+function getPostVal($index)
+{
+    if (!isset($_POST[$index])) {
+        return "";
+    }
+    return $_POST[$index];
+}
+
+
+/**
+ * @param $tmp_name
+ * @return bool
+ */
+function checkFile(): bool
+{
+    if ($_FILES['url']['tmp_name'] == '') {
+        return false;
+    }
+
+    if (in_array(mime_content_type($_FILES['url']['tmp_name']), ['image/jpeg', 'image/png', 'image/jpg'])) {
+
+        return true;
+    }
+
+    return false;
+}
+
+
+/**
+ * @return bool|mixed
+ */
+function saveFile() : bool
+{
+    if (isset($_FILES['url'])) {
+        $file_name = "lot_" . time();
+        $file_path = __DIR__ . '/uploads/';
+        move_uploaded_file($_FILES['url']['tmp_name'], $file_path . $file_name);
+
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ * @return bool
+ */
+
+function checkCost() : bool
+{
+    if ($_POST['cost'] == 0 || $_POST['cost'] < 0 ) {
+        return false;
+    }
+    return true;
+}
+
+/**
+ * @return bool
+ */
+function checkStepRate() : bool
+{
+    $isInt = filter_var($_POST['step_cost'],FILTER_VALIDATE_INT);
+
+    if ( $isInt === false) {
+        return false;
+    }
+
+    if ($isInt == 0 || $isInt < 0 ) {
+        return false;
+    }
+
+    return true;
+}
+
+/**
+ * @return bool
+ */
+function checkLostDate() : bool
+{
+    $year = substr($_POST['lot-date'],0,4);
+    $month = substr($_POST['lot-date'],5,2);
+    $day = substr($_POST['lot-date'],8,2);
+    $checkFormatDate = checkdate($month,$day,$year);
+
+    if ($checkFormatDate === false) {
+        return false;
+    }
+
+    $today = date("Y-m-d");
+    $y = substr($today,0,4);
+    $m = substr($today,5,2);
+    $d = substr($today,8,2);
+
+    if ((int)$year < (int)$y) {
+        return false;
+    }
+
+    if ((int)$year == (int)$y && (int)$month < (int)$m) {
+        return false;
+    }
+
+    if ((int)$year == (int)$y && (int)$month == (int)$m && (int)$day < (int)$d) {
+        return false;
+    }
+
+    return true;
+}
+
+function validateFormatFile() {
+
+    if ($_FILES['url']['tmp_name'] == '') {
+        return 'Загрузите изображение';
+    }
+
+    $check = checkFile();
+
+    if ($check == false) {
+        return "Формат файла должен быть jpeg, jpg, png";
+    }
+
+    return 'the good';
+}
+
+function validateCost() {
+
+    if ($_POST['cost'] == '' ) {
+        return 'Поле не заполнено';
+    }
+
+    if (!checkCost()) {
+        return  "Содержимое поля «начальная цена» должно быть числом больше нуля.";
+    }
+
+    return 'the good';
+}
+
+function validateStepRate() {
+
+    if ($_POST['step_cost'] == '' ) {
+        return 'Поле не заполнено';
+    }
+
+    if (!checkStepRate()) {
+        return "Содержимое поля «шаг ставки» должно быть целым числом больше нуля.";
+    }
+
+    return 'the good';
+}
+
+function validateLostData() {
+
+    if ($_POST['lot-date'] == '' ) {
+        return 'Поле не заполнено';
+    }
+
+    $length = strlen($_POST['lot-date']);
+    if ($length < 10) {
+        return  "Содержимое поля «дата завершения» Форматы даты должен быть ГГГГ-ММ-ДД и больше текущей даты хотябы на один день";
+    }
+
+    if (!checkLostDate()) {
+        return  "Содержимое поля «дата завершения» Форматы даты должен быть ГГГГ-ММ-ДД и больше текущей даты хотябы на один день";
+    }
+
+    return 'the good';
+}
+
+function validateFileName() {
+
+    if ($_POST['name'] == '' ) {
+        return 'Введите наименование лота';
+    }
+
+    $lenght = strlen($_POST['name']);
+
+    if ($lenght < 10 || $lenght > 100) {
+        return 'Длина поля должна быть не меньше от 10 до 100 символов';
+    }
+
+    return 'the good';
+}
+
+function validateDescription() {
+
+    if ($_POST['description'] == '' ) {
+        return 'Поле не заполнено';
+    }
+
+    $lenght = strlen($_POST['description']);
+
+    if ($lenght < 10 || $lenght > 2000) {
+        return 'Длина поля должна быть не меньше от 10 до 2000 символов';
+    }
+
+    return 'the good';
+}
+
+function validateCategories() {
+
+    if ($_POST['categories'] == 'Выберите категорию') {
+        return 'Выберите категорию';
+    }
+
+    return 'the good';
+}
