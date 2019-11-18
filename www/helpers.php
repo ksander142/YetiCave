@@ -146,12 +146,11 @@ function include_template($name, array $data = [])
     return $result;
 }
 
-
 /**
  * @param int $num
  * @return string
  */
-function getCost( $num): string
+function getCost(int $num): string
 {
     $num = ceil($num);
     $str = (string)$num;
@@ -176,8 +175,6 @@ function getCost( $num): string
         }
     }
         return $str.'₽';
-
-
 }
 
 /**
@@ -237,9 +234,7 @@ function getConnection()
     mysqli_set_charset($link, "utf8");
 
     return $link;
-
 }
-
 
 /**
  * @param string $what
@@ -262,7 +257,6 @@ function select(string $what, string $from, string $conditions = "WHERE 1") : ar
     return $rows;
 }
 
-
 /**
  * @param $index
  * @return mixed|string
@@ -274,7 +268,6 @@ function getPostVal($index)
     }
     return $_POST[$index];
 }
-
 
 /**
  * @param $tmp_name
@@ -293,7 +286,6 @@ function checkFile(): bool
 
     return false;
 }
-
 
 /**
  * @return bool|mixed
@@ -314,7 +306,6 @@ function saveFile() : bool
 /**
  * @return bool
  */
-
 function checkCost() : bool
 {
     if ($_POST['cost'] == 0 || $_POST['cost'] < 0 ) {
