@@ -463,3 +463,53 @@ function validateCategories() {
 
     return 'the good';
 }
+
+function validateEmail() {
+
+    if ($_POST['email'] == '' ) {
+        return 'Введите e-mail';
+    }
+
+    if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) == false) {
+        return 'Введен некоректный емайл';
+    }
+
+    $selectEmail = select('email', 'users');
+    foreach ($selectEmail as $value) {
+
+        if ($value['email'] == $_POST['email']) {
+            return 'Данный емайл уже используется';
+        }
+
+    }
+
+    return 'the good';
+}
+
+function validateName() {
+
+    if ($_POST['name'] == '') {
+        return 'Введите имя';
+    }
+
+    return 'the good';
+}
+
+function validateContacts() {
+
+    if ($_POST['message'] == '') {
+        return 'Напишите как с вами связаться';
+    }
+
+    return 'the good';
+}
+
+function validatePassword() {
+
+    if ($_POST['password'] == '') {
+        return 'Введите пароль';
+    }
+
+    return 'the good';
+
+}
