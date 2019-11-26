@@ -1,5 +1,6 @@
 <?php
 require_once "helpers.php" ;
+if (isset($_REQUEST[session_name()])) session_start();
 
 $rows_cat = select('id, name as categories', 'categories');
 
@@ -17,9 +18,18 @@ foreach ($rows_lot_ID as $row_lotID) {
 
 }
 
-$is_auth = rand(0, 1);
+$is_auth = 0;
 
-$user_name = 'ksander142'; // укажите здесь ваше имя
+if (!empty($_SESSION)) {
+    $is_auth = $_SESSION['id'];
+}
+
+$user_name = ''; // укажите здесь ваше имя
+
+if (!empty($_SESSION)) {
+    $user_name = $_SESSION['name'];
+}
+
 $title = 'Главная страница' ;
 
 $id_get = $_GET['id'];
@@ -34,7 +44,8 @@ $lot = select("*,l.name as lName,l.id as lID, c.name as categories","lots l","jo
 
 $content = include_template("lot.php",
     [
-        'lot' => $lot
+        'lot' => $lot,
+        'is_auth' => $is_auth
     ]);
 
 echo (include_template("layout.php",

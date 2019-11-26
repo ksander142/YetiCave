@@ -1,6 +1,15 @@
 <?php
 require_once "helpers.php" ;
 
+if (isset($_REQUEST[session_name()])) session_start();
+
+if (!empty($_SESSION)) {
+
+    return http_response_code(403);
+
+}
+
+
 $rows_cat = select('id, name as categories', 'categories');
 
 $categories = [];
@@ -9,9 +18,9 @@ foreach ($rows_cat as $row_cat) {
     $categories[] = $row_cat['categories'];
 }
 
-$is_auth = rand(0, 1);
+$is_auth = 0;
+$user_name = ''; // укажите здесь ваше имя
 
-$user_name = 'ksander142'; // укажите здесь ваше имя
 $title = 'Главная страница' ;
 
 $errorForm = [
