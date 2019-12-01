@@ -513,3 +513,16 @@ function validatePassword() {
     return 'the good';
 
 }
+
+function validAuthenticationEmail() {
+
+    if ($_POST['email'] == '' ) {
+        return 'Введите e-mail';
+    }
+
+    if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) == false) {
+        return 'Введен некоректный емайл';
+    }
+
+    return 'the good';
+}

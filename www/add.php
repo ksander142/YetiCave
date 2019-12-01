@@ -1,6 +1,22 @@
 <?php
 require_once "helpers.php" ;
 
+if (isset($_REQUEST[session_name()])) {
+    session_start();
+}
+
+$is_auth = 0;
+$user_name = ''; // укажите здесь ваше имя
+
+if (empty($_SESSION)) {
+    return http_response_code(403);
+}
+
+if (!empty($_SESSION)) {
+    $is_auth = $_SESSION['id'];
+    $user_name = $_SESSION['name'];
+}
+
 $rows_cat = select('id, name as categories', 'categories');
 $categories = [];
 
@@ -8,8 +24,6 @@ foreach ($rows_cat as $row_cat) {
     $categories[] = $row_cat['categories'];
 }
 
-$is_auth = rand(0, 1);
-$user_name = 'ksander142'; // укажите здесь ваше имя
 $title = 'Главная страница' ;
 $rules = [];
 $errorForm = [
@@ -126,7 +140,7 @@ if (empty($errors) == true) {
     $lastIdFileList = 0;
     $lastIdFileList = $countFileList - 1;
     $pathFileLot = '/uploads/' . $fileList[$lastIdFileList];
-    $insertlot = mysqli_query($link, "insert into lots set name='{$lotName}',description='{$lotDes}',url='{$pathFileLot}',step_cost='{$lotStepCost}',cost='{$lotCost}',date='{$lotLostDate}',user_id='1',categories_id='{$selectIdCategories[0]['id']}'");
+    $insertlot = mysqli_query($link, "insert into lots set name='{$lotName}',description='{$lotDes}',url='{$pathFileLot}',step_cost='{$lotStepCost}',cost='{$lotCost}',date='{$lotLostDate}',user_id='{$is_auth}',categories_id='{$selectIdCategories[0]['id']}'");
 
     if ($insertlot == false) {
         $error = mysqli_error($link);
