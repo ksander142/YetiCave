@@ -1,6 +1,9 @@
 <?php
 require_once "helpers.php" ;
-if (isset($_REQUEST[session_name()])) session_start();
+
+if (isset($_REQUEST[session_name()])) {
+    session_start();
+}
 
 $rows_cat = select('id, name as categories', 'categories');
 
@@ -38,8 +41,6 @@ echo (include_template("layout.php",
         'is_auth' => $is_auth,
     ]
 ));
-
-
 
 
 ?>

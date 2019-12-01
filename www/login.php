@@ -18,14 +18,10 @@ $errorForm = [
 $rules = [];
 
 if (!empty($_POST)) {
-
     $rules = [
-
-        'email' => validLoginEmail(),
+        'email' => validAuthenticationEmail(),
         'password' => validatePassword()
-
     ];
-
 } else {
     $errorForm['form'] = 'Пожалуйста, заполните форму';
 }
@@ -54,7 +50,6 @@ $classDivEmail = '';
 $classDivPassword = '';
 
 if (empty($errors) == false) {
-
     $classForm = 'form--invalid';
     $textForm = 'Пожалуйста, исправьте ошибки в форме.';
 }
@@ -74,15 +69,12 @@ if (array_key_exists('password', $errors)) {
 $userBase = [ ];
 
 if (empty($errors)) {
-
     $selectUser = select('*', 'users',"where email = '{$_POST['email']}' ");
 
     if (!empty($selectUser)) {
-
         $userBase = $selectUser;
 
           if (!password_verify($_POST['password'], $selectUser[0]['password'])) {
-
               $errors = ['password' => 'Введен неверный пароль'];
 
               if (array_key_exists('password', $errors)) {
@@ -92,7 +84,6 @@ if (empty($errors)) {
           }
 
     } else {
-
         $errors = ['email' => 'Такой email не зарегистрирован'];
 
         if (array_key_exists('email', $errors)) {

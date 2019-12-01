@@ -1,24 +1,21 @@
 <?php
 require_once "helpers.php" ;
 
-if (isset($_REQUEST[session_name()])) session_start();
+if (isset($_REQUEST[session_name()])) {
+    session_start();
+}
 
 $is_auth = 0;
 $user_name = ''; // укажите здесь ваше имя
 
 if (empty($_SESSION)) {
-
-        return http_response_code(403);
-
+    return http_response_code(403);
 }
-
 
 if (!empty($_SESSION)) {
     $is_auth = $_SESSION['id'];
     $user_name = $_SESSION['name'];
 }
-
-
 
 $rows_cat = select('id, name as categories', 'categories');
 $categories = [];

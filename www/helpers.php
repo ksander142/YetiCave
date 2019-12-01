@@ -514,7 +514,7 @@ function validatePassword() {
 
 }
 
-function validLoginEmail() {
+function validAuthenticationEmail() {
 
     if ($_POST['email'] == '' ) {
         return 'Введите e-mail';
