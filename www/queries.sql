@@ -27,3 +27,13 @@ select * from lots join categories c on lots.categories_id = c.id where lots.id 
 update lots set name='test' where id=1; -- обновить название лота по его id
 select l.name,start_cost,img,c.name from lots l join categories c on l.categories_id = c.id ORDER BY l.lost_date DESC  LIMIT 3;-- получить самые новые открытые лоты. Каждый лот должен включать название, стартову цену, цену, имг, категорию
 select * from rate r join lots l on r.lots_id = l.id ORDER BY l.add_date DESC ; --получить список ставок для лота по его id с сортировкой по дате
+
+--добавляем индекс полнотекстового поиска в существующию таблицу по полям name, description
+create fulltext index lot_ft_search on lots(name,description);
+
+----добавляем в таблицу внешний ключ
+alter table rate add FOREIGN KEY (lots_id) REFERENCES lots (id);
+--- поиск по полям в таблице
+select *, MATCH(name,description) AGAINST('district 2014') as score from lots where MATCH(name,description) AGAINST('district');
+--поиск по полям таблицы с присоеденением другой таблицы
+select *,lots.name as lName,lots.id as lID, c.name as categories, MATCH(lots.name,description) AGAINST('district 2014') as score from lots join categories c on lots.categories_id = c.id where MATCH(lots.name,description) AGAINST('district');
