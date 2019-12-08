@@ -30,7 +30,7 @@ if (!empty($_GET['search'])) {
 }
 
 if ($search == '') {
-    $errors = ['stroka' => 'empty'];
+    $errors = ['string' => 'empty'];
 }
 
 if (empty($errors)) {
