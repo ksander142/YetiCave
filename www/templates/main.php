@@ -43,4 +43,12 @@
         <?php endforeach; ?>
         <!---->
     </ul>
+
+    <?=include_template("pagination.php",
+        [
+            'pages_count' => $pages_count,
+            'current_page' => $current_page,
+            'pages' => $pages
+        ]
+    );?>
 </section>

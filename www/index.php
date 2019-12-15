@@ -13,8 +13,6 @@ foreach ($rows_cat as $row_cat) {
     $categories[] = $row_cat['categories'];
 }
 
-$lots = select('*,lots.name as lName,lots.id as lID, c.name as categories','lots','join categories c on lots.categories_id = c.id');
-
 $is_auth = 0;
 $user_name = ''; // укажите здесь ваше имя
 
@@ -23,14 +21,24 @@ if (!empty($_SESSION)) {
     $user_name = $_SESSION['name'];
 }
 
-$title = 'Главная страница' ;
+$title = 'Главная страница';
+$current_page = $_GET['page'] ?? 1;
+$page_items = 9;
+$count_select_lots = select('COUNT(*) as cnt','lots');
+$count_lots = $count_select_lots[0]['cnt'];
+$pages_count = ceil($count_lots/$page_items);
+$offset = ($current_page - 1) * $page_items;
+$pages = range(1, $pages_count);
+$lots = select('*,lots.name as lName,lots.id as lID, c.name as categories','lots',"join categories c on lots.categories_id = c.id ORDER BY date DESC LIMIT {$page_items} OFFSET {$offset}");
 
 $content = include_template("main.php",
     [
         'products' => $lots,
-        'categories' => $categories
+        'categories' => $categories,
+        'pages_count' => $pages_count,
+        'current_page' => $current_page,
+        'pages' => $pages
     ]);
-
 
 echo (include_template("layout.php",
     [
@@ -41,8 +49,6 @@ echo (include_template("layout.php",
         'is_auth' => $is_auth,
     ]
 ));
-
-
 ?>
 
 
