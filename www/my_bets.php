@@ -25,7 +25,7 @@ $title = 'Главная страница';
 $link = getConnection();
 $res = mysqli_query($link,"select lots.id,lots.name,lots.date, lots.url, r.raise_cost,r.add_date as rate_date, c.name as categories,u.contacts from lots join categories c on lots.categories_id = c.id join rate r on lots.id = r.lots_id join users u on lots.user_id = u.id where r.user_id = '{$is_auth}'");
 $info_bets = mysqli_fetch_all($res, MYSQLI_ASSOC);
-$result = mysqli_query($link,"select lots.id,u.id as usID,u.name as usName,rate.raise_cost from lots join rate on lots.id = rate.lots_id join users u on rate.user_id = u.id where u.id = rate.user_id");
+$result = mysqli_query($link,"select lots.id, u.id as usID,u.name as usName,rate.raise_cost from lots join rate on lots.id = rate.lots_id join users u on rate.user_id = u.id where u.id = rate.user_id");
 $info_all_bets = mysqli_fetch_all($result, MYSQLI_ASSOC);
 $last = null;
 $lastArrRate = null;
@@ -33,7 +33,7 @@ $win = [];
 
 foreach ($info_all_bets as $arr) {
 
-    if($arr['id'] == $last){
+    if (!is_null($last)){
 
         if ($arr['raise_cost'] > $lastArrRate) {
             $win = $arr;
@@ -46,9 +46,7 @@ foreach ($info_all_bets as $arr) {
 }
 
 foreach ($info_bets as $value) {
-
     $win['contacts'] = $value['contacts'];
-
 }
 
 $content = include_template("my_bets.php",
@@ -67,3 +65,4 @@ echo (include_template("layout.php",
         'is_auth' => $is_auth,
     ]
 ));
+

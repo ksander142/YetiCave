@@ -44,6 +44,7 @@
                         <div class="lot-item__timer timer <?= $zeroTime ;?>">
                             <?= $lostTime[0] . ":" . $lostTime[1];?>
                         </div>
+                        <?php if( $lostTime[1] != 0 ) :?>
                         <div class="lot-item__cost-state">
                             <div class="lot-item__rate">
                                 <span class="lot-item__amount">Текущая цена</span>
@@ -62,6 +63,7 @@
                             </p>
                             <button type="submit" class="button">Сделать ставку</button>
                         </form>
+                            <?php endif;?>
                     </div>
 
                         <?php endforeach; ?>

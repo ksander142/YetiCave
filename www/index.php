@@ -21,6 +21,10 @@ if (!empty($_SESSION)) {
     $user_name = $_SESSION['name'];
 }
 
+if ($is_auth != '0' && $is_auth != 0) {
+    require_once "getwinner.php" ;
+}
+
 $title = 'Главная страница';
 $current_page = $_GET['page'] ?? 1;
 $page_items = 9;
@@ -49,6 +53,7 @@ echo (include_template("layout.php",
         'is_auth' => $is_auth,
     ]
 ));
+
 ?>
 
 
